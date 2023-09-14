@@ -6,6 +6,7 @@ import {
 } from '@supabase/auth-helpers-nextjs';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import navigation from '@/app/libs/navigation';
 
 export default function NavBar() {
 	const supabase = createClientComponentClient();
@@ -60,12 +61,29 @@ export default function NavBar() {
 
 	return (
 		<nav className='flex flex-row space-x-4 p-4'>
-			<Link href='/'>Home</Link>
-			<Link href='/account'>Account</Link>
+			{navigation.map(({ label, path }) => (
+				<Link
+					key={label}
+					href={path}
+					className='p-2 rounded-md hover:bg-slate-400 hover:shadow-md transition duration-2'
+				>
+					{label}
+				</Link>
+			))}
 			{session ? (
-				<button onClick={handleSignOut}>Sign out</button>
+				<button
+					onClick={handleSignOut}
+					className='p-2 rounded-md hover:bg-slate-400 hover:shadow-md transition duration-2'
+				>
+					Sign out
+				</button>
 			) : (
-				<button onClick={handleGoogleSignIn}>Sign in with Google</button>
+				<button
+					onClick={handleGoogleSignIn}
+					className='p-2 rounded-md hover:bg-slate-400 hover:shadow-md transition duration-2'
+				>
+					Sign in with Google
+				</button>
 			)}
 		</nav>
 	);

@@ -15,6 +15,7 @@ export async function GET(request: Request) {
 		);
 
 		const { totalItems, items } = await response.json();
+		console.log('items: ', items);
 
 		return NextResponse.json({ totalItems, items });
 	} catch (error: any) {

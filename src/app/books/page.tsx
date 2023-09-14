@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { use, useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { format } from 'date-fns';
 
 export default function BookSearchPage() {
 	const [searchTerm, setSearchTerm] = useState<string>('');
@@ -49,22 +50,20 @@ export default function BookSearchPage() {
 					</button>
 				</div>
 			</form>
-			{numResults ? (
-				<div>
-					<p>{numResults}</p>
-				</div>
-			) : null}
 			<div className='flex flex-col space-y-4 p-2'>
 				{searchResults.map((book) => (
-					<div key={book.id} className='flex flex-row space-x-4 items-center'>
-						<div className='w-32 h-48'>
+					<div
+						key={book.id}
+						className='flex flex-row space-x-4 items-center border-2 border-slate-400 rounded-md shadow-lg px-2 py-4'
+					>
+						<div className='w-24 h-auto'>
 							<Image
 								src={book.volumeInfo.imageLinks.thumbnail}
 								alt={book.volumeInfo.title}
-								// width={128}
-								// height={193}
-								fill
-								style={{ objectFit: 'cover' }}
+								width={128}
+								height={193}
+								// fill
+								// style={{ objectFit: 'cover' }}
 							/>
 						</div>
 						<div>
@@ -73,6 +72,13 @@ export default function BookSearchPage() {
 								{book.volumeInfo.subtitle}
 							</h3>
 							<p>{book.volumeInfo.authors}</p>
+							<p>
+								Published:{' '}
+								{format(
+									new Date(book.volumeInfo.publishedDate),
+									'MMMM do, yyyy'
+								)}
+							</p>
 						</div>
 					</div>
 				))}
