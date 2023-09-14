@@ -8,6 +8,8 @@ export async function GET(request: Request) {
 		// const response = await fetch(
 		// 	`https://www.googleapis.com/books/v1/users/${id}/bookshelves`
 		// );
+
+		// FIXME - this is a a temporary hack to get around Google User ID issue.
 		const response = await fetch(
 			`https://www.googleapis.com/books/v1/users/104271749682172392847/bookshelves/2/volumes`
 		);
